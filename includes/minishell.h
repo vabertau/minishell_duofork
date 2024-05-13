@@ -205,7 +205,7 @@ int					ft_echo(char **split_cmd);
 void				main_signals(void);
 void				execute_signals(int pid);
 int					return_if_sig(int status, int l);
-void				heredoc_signals(void);
+void				heredoc_signals(int pid);
 
 /* Function prototype for ft_cd */
 int					ft_cd(char **split_cmd, t_data *data);

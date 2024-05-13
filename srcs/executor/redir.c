@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hzaz <hzaz@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vabertau <vabertau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 21:03:31 by hedi              #+#    #+#             */
-/*   Updated: 2024/05/13 20:16:36 by hzaz             ###   ########.fr       */
+/*   Updated: 2024/05/13 20:30:12 by vabertau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void	fill_redir_heredoc(t_data *shell, int *cpt, t_token *redir)
 	int		s;
 
 	pid = fork();
+	heredoc_signals(pid);
 	if (pid == -1)
 		perror("fork");
 	else if(pid == 0)
 	{
-		heredoc_signals();
 		full_path = join_free2("/tmp/heredoc_", ft_itoa((*cpt)++));
 		fd = safe_open(full_path, O_RDWR | O_CREAT | O_TRUNC, 0600, shell);
 		line = readline("> ");
