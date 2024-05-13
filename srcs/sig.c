@@ -6,7 +6,7 @@
 /*   By: vabertau <vabertau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:23:58 by hzaz              #+#    #+#             */
-/*   Updated: 2024/05/13 20:24:10 by vabertau         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:45:21 by vabertau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,22 @@ void	execute_signals(int pid)
 }
 
 
-void	heredoc_signals(int child_pid)
+void	heredoc_signals(int pid)
 {
-	struct sigaction	sa_sigint;
-	struct sigaction	sa_sigquit;
+	struct sigaction	sigint;
+	struct sigaction	sigquit;
 
-	sa_sigint.sa_flags = 0;
-	sigemptyset(&sa_sigint.sa_mask);
-	if (child_pid == 0)
-		sa_sigint.sa_handler = SIG_DFL;
+	sigint.sa_flags = 0;
+	sigemptyset(&sigint.sa_mask);
+	sigquit.sa_flags = 0;
+	sigemptyset(&sigquit.sa_mask);
+	if (pid == 0)
+		sigint.sa_handler = SIG_DFL;
 	else
-		sa_sigint.sa_handler = SIG_IGN;
-	sigaction(SIGINT, &sa_sigint, NULL);
-	sa_sigquit.sa_flags = 0;
-	sigemptyset(&sa_sigquit.sa_mask);
-	sa_sigquit.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &sa_sigquit, NULL);
+		sigint.sa_handler = SIG_IGN;
+	sigquit.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sigint, NULL);
+	sigaction(SIGQUIT, &sigquit, NULL);
 }
 
 /*
